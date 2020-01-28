@@ -11,12 +11,28 @@ interface IteratorOptions extends RangeOptions {
 	end?: Moment;
 }
 
+function isValidRange(step: number, start: Moment, end: Moment | undefined): [boolean, string] {
+	if (end === undefined) {
+		return [true, ''];
+	}
+
+	if (step > 0) {
+		return [start.isBefore(end), '`start` needs to be before `end`'];
+	}
+
+	if (step < 0) {
+		return [start.isAfter(end), '`start` needs to be after `end`'];
+	}
+
+	return [false, 'Unknown condition'];
+}
+
 function isMoment(value: Partial<RangeOptions> | Moment | undefined): value is Moment {
 	if (!value) {
 		return false;
 	}
 
-	return (value as any).format
+	return !!((value as unknown) as Moment).format;
 }
 
 function assert(condition: boolean, message: string): asserts condition {
@@ -30,50 +46,36 @@ function* dateIterator(options: IteratorOptions): Generator<Moment> {
 
 	let rangeStart = moment(start);
 
-	// TODO: Work with moving backwards
-	while (!end || rangeStart.isSameOrBefore(end)) {
+	const fnName = step > 0 ? 'isSameOrBefore' : 'isSameOrAfter';
+
+	while (!end || rangeStart[fnName](end)) {
 		yield moment(rangeStart);
 
-		// Check what happens when adding negative numbers
 		rangeStart = moment(rangeStart).add(step, unit as unitOfTime.DurationConstructor);
 	}
 }
 
-export function range(start: Moment, rangeOptions?: Partial<RangeOptions>): Generator;
-export function range(start: Moment, end: Moment, rangeOptions?: Partial<RangeOptions>): Generator;
-export function range(
-	start: Moment,
-	end?: Moment | Partial<RangeOptions>,
-	rangeOptions?: Partial<RangeOptions>
-): Generator {
+export function range(start: Moment, rangeOptions?: Partial<RangeOptions>): Generator<Moment>;
+export function range(start: Moment, end: Moment, rangeOptions?: Partial<RangeOptions>): Generator<Moment>;
+export function range(start: Moment, end?: Moment | Partial<RangeOptions>, rangeOptions?: Partial<RangeOptions>): Generator<Moment> {
 	let rangeEnd: Moment | undefined;
-	let opts: Partial<RangeOptions> = rangeOptions ?? {};
+	let opts = rangeOptions ?? {};
 
 	if (isMoment(end)) {
 		rangeEnd = end;
 	} else {
-		opts = end ?? {}
+		opts = end ?? {};
 	}
 
 	const options = {
 		step: 1,
 		unit: 'd',
-		...opts,
-	}
+		...opts
+	};
 
 	assert(options.step !== 0, '`step` cannot be `0`');
 	assert(Number.isInteger(options.step), '`step` must be an integer');
-
-	if (rangeEnd) {
-		assert(
-			options.step > 0 && start.isAfter(rangeEnd),
-			'`start` needs to be before `end`'
-		);
-		assert(
-			options.step < 0 && start.isBefore(rangeEnd),
-			'`end` needs to be before `after`'
-		);
-	}
+	assert(...isValidRange(options.step, start, rangeEnd));
 
 	return dateIterator({
 		...options,
