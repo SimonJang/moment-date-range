@@ -18,7 +18,7 @@ $ npm install --save moment-date-range
 ### With only `start` passed
 
 ```js
-import {range} from 'moment-date-range';
+import {range} from '@simonja/moment-date-range';
 
 const generator = range(moment('2020-01-21'));
 
@@ -30,7 +30,7 @@ for (const day of generator) {
 ### With `start` and `end` passed using the default configuration options passed
 
 ```js
-import {range} from 'moment-date-range';
+import {range} from '@simonja/moment-date-range';
 
 const generator = range(moment('2020-01-21'), moment('2020-01-31'));
 
@@ -42,7 +42,7 @@ for (const day of generator) {
 ### With a `start`, `end` and configuration options
 
 ```js
-import {range} from 'moment-date-range';
+import {range} from '@simonja/moment-date-range';
 
 const generator = range(moment('2020-01-01'), moment('2020-01-05'), {step: 2, unit: 'd'});
 
@@ -54,7 +54,7 @@ for (const day of generator) {
 ### Without lazy computation
 
 ```js
-import {range} from 'moment-date-range';
+import {range} from '@simonja/moment-date-range';
 
 const generator = range(moment('2020-01-01'), moment('2020-01-10'));
 
@@ -79,7 +79,7 @@ console.log(dates)
 ### With `start` and `end` with a negative `step` configuration
 
 ```js
-import {range} from 'moment-date-range';
+import {range} from '@simonja/moment-date-range';
 
 const generator = range(moment('2020-01-31'), moment('2020-01-29'), {step: -1});
 
@@ -91,7 +91,7 @@ for (const day of generator) {
 ### With `start` and `end` with a defined `unit`
 
 ```js
-import {range} from 'moment-date-range';
+import {range} from '@simonja/moment-date-range';
 
 const generator = range(moment('2020-01-01'), moment('2020-01-18'), {unit: 'w'});
 
