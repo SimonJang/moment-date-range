@@ -2,7 +2,13 @@ import {Moment, unitOfTime} from 'moment';
 import * as moment from 'moment';
 
 interface RangeOptions {
+	/**
+	 * Number of units between each iteration. Default `1`
+	 */
 	step: number;
+	/**
+	 * Unit used during iteration. Default `d`
+	 */
 	unit: string;
 }
 
@@ -55,6 +61,12 @@ function* dateIterator(options: IteratorOptions): Generator<Moment> {
 	}
 }
 
+/**
+ * Calculate a range from a start date.
+ *
+ * @param start - Starting date.
+ * @param rangeOptions - Configuration options.
+ */
 export function range(start: Moment, rangeOptions?: Partial<RangeOptions>): Generator<Moment>;
 export function range(start: Moment, end: Moment, rangeOptions?: Partial<RangeOptions>): Generator<Moment>;
 export function range(start: Moment, end?: Moment | Partial<RangeOptions>, rangeOptions?: Partial<RangeOptions>): Generator<Moment> {

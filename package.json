@@ -13,10 +13,11 @@
 		"prepare": "npm run test && npm run build",
 		"deploy": "npm run prepare && npx np"
 	},
+	"repository": "https://github.com/SimonJang/moment-date-range",
 	"engines": {
 		"node": ">=8"
 	},
-	"keywords": [],
+	"keywords": ["range", "moment", "generator"],
 	"files": [
 		"lib"
 	],

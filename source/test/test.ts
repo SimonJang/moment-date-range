@@ -28,11 +28,19 @@ test('should iterate forward with a defined step', t => {
 });
 
 test('should iterate forward with a defined step and unit', t => {
-	const iterator = range(moment('2020-01-01'), {step: 1, unit: 'w'});
+	const iterator = range(moment('2020-01-01'), {unit: 'w'});
 
 	t.is(iterator.next().value.format('YYYY-MM-DD'), '2020-01-01');
 	t.is(iterator.next().value.format('YYYY-MM-DD'), '2020-01-08');
 	t.is(iterator.next().value.format('YYYY-MM-DD'), '2020-01-15');
+});
+
+test('should iterate forward with defined unit and end', t => {
+	const iterator = range(moment('2020-01-01'), moment('2020-01-18'), {unit: 'w'});
+
+	const dates = Array.from<Moment>(iterator).map<string>(item => item.format('YYYY-MM-DD'));
+
+	t.deepEqual(dates, ['2020-01-01', '2020-01-08', '2020-01-15']);
 });
 
 test('should iterate in a specific range', t => {
