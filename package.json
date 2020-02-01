@@ -17,7 +17,11 @@
 	"engines": {
 		"node": ">=8"
 	},
-	"keywords": ["range", "moment", "generator"],
+	"keywords": [
+		"range",
+		"moment",
+		"generator"
+	],
 	"files": [
 		"lib"
 	],
