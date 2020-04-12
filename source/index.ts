@@ -1,5 +1,5 @@
-import {Moment, unitOfTime} from 'moment';
 import * as moment from 'moment';
+import {Moment, unitOfTime} from './types';
 
 interface RangeOptions {
 	/**
@@ -9,7 +9,7 @@ interface RangeOptions {
 	/**
 	 * Unit used during iteration. Default `d`
 	 */
-	unit: string;
+	unit: unitOfTime.DurationConstructor;
 }
 
 interface IteratorOptions extends RangeOptions {
@@ -57,7 +57,7 @@ function* dateIterator(options: IteratorOptions): Generator<Moment> {
 	while (!end || rangeStart[fnName](end)) {
 		yield moment(rangeStart);
 
-		rangeStart = moment(rangeStart).add(step, unit as unitOfTime.DurationConstructor);
+		rangeStart = moment(rangeStart).add(step, unit);
 	}
 }
 
@@ -81,7 +81,7 @@ export function range(start: Moment, end?: Moment | Partial<RangeOptions>, range
 
 	const options = {
 		step: 1,
-		unit: 'd',
+		unit: 'd' as unitOfTime.DurationConstructor,
 		...opts
 	};
 

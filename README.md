@@ -10,7 +10,7 @@
 ## Install
 
 ```bash
-$ npm install --save moment-date-range
+$ npm install @simonja/moment-date-range --save
 ```
 
 ## Usage
