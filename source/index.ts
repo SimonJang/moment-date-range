@@ -23,11 +23,11 @@ function isValidRange(step: number, start: Moment, end: Moment | undefined): [bo
 	}
 
 	if (step > 0) {
-		return [start.isBefore(end), '`start` needs to be before `end`'];
+		return [start.isSameOrBefore(end), '`start` needs to be before `end`'];
 	}
 
 	if (step < 0) {
-		return [start.isAfter(end), '`start` needs to be after `end`'];
+		return [start.isSameOrAfter(end), '`start` needs to be after `end`'];
 	}
 
 	return [false, 'Unknown condition'];
