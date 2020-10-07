@@ -62,6 +62,22 @@ test('should iterate in a specific range', t => {
 	]);
 });
 
+test('should iterate if start and end are the same', t => {
+	const iterator = range(moment('2020-01-01'), moment('2020-01-01'));
+
+	const dates = Array.from<Moment>(iterator).map<string>(item => item.format('YYYY-MM-DD'));
+
+	t.deepEqual(dates, ['2020-01-01']);
+});
+
+test('should iterate if start and end are the same and step is negative', t => {
+	const iterator = range(moment('2020-01-01'), moment('2020-01-01'), {step: -1});
+
+	const dates = Array.from<Moment>(iterator).map<string>(item => item.format('YYYY-MM-DD'));
+
+	t.deepEqual(dates, ['2020-01-01']);
+});
+
 test('should iterate backwards', t => {
 	const iterator = range(moment('2020-01-31'), {step: -1});
 
