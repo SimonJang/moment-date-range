@@ -1,6 +1,6 @@
 {
 	"name": "@simonja/moment-date-range",
-	"version": "0.1.0",
+	"version": "0.1.1",
 	"description": "Utility to create a moment date range iterator",
 	"main": "lib/index.js",
 	"types": "lib/index.d.ts",
