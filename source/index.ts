@@ -54,7 +54,7 @@ function* dateIterator(options: IteratorOptions): Generator<Moment> {
 
 	const fnName = step > 0 ? 'isSameOrBefore' : 'isSameOrAfter';
 
-	while (!end || rangeStart[fnName](end)) {
+	while (!end || rangeStart[fnName](end, unit)) {
 		yield moment(rangeStart);
 
 		rangeStart = moment(rangeStart).add(step, unit);

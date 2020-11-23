@@ -1,6 +1,7 @@
 import test from 'ava';
 import {Moment} from 'moment';
 import * as moment from 'moment';
+import * as sinon from 'sinon';
 import {range} from '..';
 
 test('should fail on validation', t => {
@@ -92,4 +93,16 @@ test('should iterate in a specific range backwards', t => {
 	const dates = Array.from<Moment>(iterator).map<string>(item => item.format('YYYY-MM-DD'));
 
 	t.deepEqual(dates, ['2020-01-31', '2020-01-24']);
+});
+
+test.serial('should take the unit into account when iterating', t => {
+	const clock = sinon.useFakeTimers(new Date('2020-10-20T09:00:00+01:00'));
+
+	const iterator = range(moment('2020-11-01T10:00:00+01:00'), moment('2020-11-05'));
+
+	const dates = Array.from<Moment>(iterator).map<string>(item => item.format('YYYY-MM-DD'));
+
+	t.deepEqual(dates, ['2020-11-01', '2020-11-02', '2020-11-03', '2020-11-04', '2020-11-05']);
+
+	clock.restore();
 });
