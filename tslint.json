@@ -2,6 +2,7 @@
 	"extends": ["tslint-xo", "tslint-config-prettier"],
 	"rules": {
 		"no-duplicate-imports": false,
-		"unified-signatures": false
+		"unified-signatures": false,
+		"no-unsafe-any": false
 	}
 }

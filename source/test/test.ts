@@ -4,9 +4,9 @@ import * as moment from 'moment';
 import {range} from '..';
 
 test('should fail on validation', t => {
-	t.throws(() => range(moment('2020-01-01'), moment('2019-12-31')), '`start` needs to be before `end`');
-	t.throws(() => range(moment('2020-01-01'), moment('2020-02-01'), {step: -1}), '`start` needs to be after `end`');
-	t.throws(() => range(moment('2020-01-01'), moment('2020-01-31'), {step: 0}), '`step` cannot be `0`');
+	t.throws(() => range(moment('2020-01-01'), moment('2019-12-31')), undefined, '`start` needs to be before `end`');
+	t.throws(() => range(moment('2020-01-01'), moment('2020-02-01'), {step: -1}), undefined, '`start` needs to be after `end`');
+	t.throws(() => range(moment('2020-01-01'), moment('2020-01-31'), {step: 0}), undefined, '`step` cannot be `0`');
 });
 
 test('should iterate forward with the default options', t => {
