@@ -7,6 +7,8 @@
 - Node >= 8
 - [moment](https://www.npmjs.com/package/moment) (**Peer dependency**)
 
+**If you use Typescript, Typescript 3.6+ is required** since this lib uses the global generic Generator type.
+
 ## Install
 
 ```bash
@@ -126,7 +128,7 @@ Number of units between each iteration. Default `1`
 
 ##### options.unit
 
-Unit used during iteration. Default `d`
+Unit used during iteration for comparison and cycling. Default `d`
 
 #### Generator<Moment>
 
