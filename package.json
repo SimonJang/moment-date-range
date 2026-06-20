@@ -4,18 +4,26 @@
 	"description": "Utility to create a moment date range iterator",
 	"main": "lib/index.js",
 	"types": "lib/index.d.ts",
+	"exports": {
+		".": {
+			"types": "./lib/index.d.ts",
+			"require": "./lib/index.js",
+			"default": "./lib/index.js"
+		}
+	},
+	"packageManager": "npm@11.11.0",
 	"scripts": {
-		"lint": "tslint -p . --format stylish",
-		"format": "prettier --write \"source/**/*.ts\" \"lib/**/*.js\"",
+		"format": "prettier --write \"source/**/*.ts\"",
 		"build": "npm run clean && tsc -p tsconfig.json",
-		"test": "npm run format && npm run lint && nyc ava",
-		"clean": "del-cli lib",
-		"prepare": "npm run test && npm run build",
+		"test": "npm run build && node --import tsx --test source/test/test.ts",
+		"clean": "node -e \"require('node:fs').rmSync('lib',{recursive:true,force:true})\"",
+		"prepare": "npm run build",
+		"prepack": "npm test",
 		"deploy": "npm run prepare && npx np"
 	},
 	"repository": "https://github.com/SimonJang/moment-date-range",
 	"engines": {
-		"node": ">=8"
+		"node": ">=22"
 	},
 	"keywords": [
 		"range",
@@ -31,37 +39,12 @@
 	},
 	"license": "MIT",
 	"peerDependencies": {
-		"moment": "^2.24.0"
+		"moment": "^2.30.1"
 	},
 	"devDependencies": {
-		"@ava/babel": "^1.0.1",
-		"@istanbuljs/nyc-config-typescript": "^0.1.3",
-		"@types/node": "^12.12.14",
-		"@types/sinon": "^9.0.8",
-		"ava": "^3.13.0",
-		"del-cli": "^3.0.1",
-		"moment": "^2.24.0",
-		"nyc": "^14.1.1",
-		"prettier": "^1.19.1",
-		"sinon": "^9.2.1",
-		"ts-node": "^8.5.2",
-		"tslint": "^5.20.1",
-		"tslint-config-prettier": "^1.18.0",
-		"tslint-xo": "^0.16.0",
-		"typescript": "^3.7.2"
-	},
-	"nyc": {
-		"extends": "@istanbuljs/nyc-config-typescript"
-	},
-	"ava": {
-		"extensions": [
-			"ts"
-		],
-		"require": [
-			"ts-node/register"
-		],
-		"files": [
-			"source/test/test.ts"
-		]
+		"moment": "^2.30.1",
+		"prettier": "^3.8.4",
+		"tsx": "^4.22.4",
+		"typescript": "^6.0.3"
 	}
 }
