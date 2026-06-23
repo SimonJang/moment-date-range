@@ -17,3 +17,27 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - run: npm ci
       - run: npm test
+
+  legacy-runtime:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 22.x
+      - run: npm ci
+      - run: npm run build
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 8.x
+      - run: |
+          node - <<'JS'
+          const assert = require('assert');
+          const moment = require('moment');
+          const {range} = require('./lib');
+
+          const dates = Array.from(range(moment('2020-01-01'), moment('2020-01-03')))
+            .map(date => date.format('YYYY-MM-DD'));
+
+          assert.deepStrictEqual(dates, ['2020-01-01', '2020-01-02', '2020-01-03']);
+          JS

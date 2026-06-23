@@ -23,7 +23,7 @@
 	},
 	"repository": "https://github.com/SimonJang/moment-date-range",
 	"engines": {
-		"node": ">=22"
+		"node": ">=8"
 	},
 	"keywords": [
 		"range",
@@ -39,7 +39,7 @@
 	},
 	"license": "MIT",
 	"peerDependencies": {
-		"moment": "^2.30.1"
+		"moment": ">=2.24.0 <3"
 	},
 	"devDependencies": {
 		"moment": "^2.30.1",
