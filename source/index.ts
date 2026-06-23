@@ -1,4 +1,4 @@
-import * as moment from 'moment';
+import moment = require('moment');
 import {Moment, unitOfTime} from './types';
 
 interface RangeOptions {
@@ -38,7 +38,7 @@ function isMoment(value: Partial<RangeOptions> | Moment | undefined): value is M
 		return false;
 	}
 
-	return !!((value as unknown) as Moment).format;
+	return !!(value as unknown as Moment).format;
 }
 
 function assert(condition: boolean, message: string): asserts condition {

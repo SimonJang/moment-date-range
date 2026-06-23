@@ -13,6 +13,7 @@
 		"noFallthroughCasesInSwitch": true,
 		"allowSyntheticDefaultImports": true,
 		"strictNullChecks": true,
+		"rootDir": "source",
 		"outDir": "lib",
 		"strict": true
 	},
